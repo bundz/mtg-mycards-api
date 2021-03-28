@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_21_201803) do
+ActiveRecord::Schema.define(version: 2021_03_28_222521) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,13 +20,16 @@ ActiveRecord::Schema.define(version: 2021_03_21_201803) do
     t.string "description"
     t.string "flavor_text"
     t.string "mana_cost"
-    t.string "card_type"
-    t.string "subtype"
-    t.string "supertype"
-    t.string "color"
     t.bigint "edition_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "power"
+    t.string "thoughness"
+    t.string "loyalty"
+    t.string "card_type", default: [], array: true
+    t.string "subtype", default: [], array: true
+    t.string "supertype", default: [], array: true
+    t.string "color", default: [], array: true
     t.index ["edition_id"], name: "index_cards_on_edition_id"
   end
 
