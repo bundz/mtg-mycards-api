@@ -2,11 +2,8 @@ namespace :import do
   # card.delete_all
   # edition.delete_all
 
-  desc "TODO"
-  task cards: :environment do
-    Card.delete_all
-    Edition.delete_all
-    file = File.read(Rails.root.join('lib/tasks/data/TSR.json'))
+  def import_edition_and_cards file_name
+    file = File.read(Rails.root.join('lib/tasks/data/cards/', file_name))
     data_hash = JSON.parse(file)
     edition_data = {
       name: data_hash['data']['name'],
@@ -34,7 +31,19 @@ namespace :import do
 
       Card.create(card_data)
     end
+  end
 
+  desc "TODO"
+  task cards: :environment do
+    Card.delete_all
+    Edition.delete_all
+    files = Dir.entries(Rails.root.join('lib/tasks/data/cards'))
+
+    files.each do |file| 
+      next if file == '.' || file == '..'
+
+      import_edition_and_cards file
+    end
   end
 
 end
